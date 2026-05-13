@@ -2,44 +2,87 @@
 // frontmatter for later use
 ---
 
-<!-- SVG code for a circle 
--->
-<svg id="theCircle"
+<style>
+  #sun {
+    width: 48px;
+    height: 48px;
+    stroke: #fbbf24;
+    filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.45));
+    cursor: default;
+  }
 
-xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-icon lucide-circle">
-    
-    <circle cx="12" cy="12" r="10"/>
+  .sun-core {
+    fill: #f59e0b;
+  }
+</style>
 
+<svg 
+  id="sun"
+  xmlns="http://www.w3.org/2000/svg"
+  width="48"
+  height="48"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke-width="2.5"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle class="sun-core" cx="12" cy="12" r="4"/>
+
+  <path d="M12 2v2"/>
+  <path d="M12 20v2"/>
+  <path d="m4.93 4.93 1.41 1.41"/>
+  <path d="m17.66 17.66 1.41 1.41"/>
+  <path d="M2 12h2"/>
+  <path d="M20 12h2"/>
+  <path d="m6.34 17.66-1.41 1.41"/>
+  <path d="m19.07 4.93-1.41 1.41"/>
 </svg>
 
-<!-- GSAP Scripting -->
 <script>
-    // import GSAP
-    import gsap from 'gsap';
+  import gsap from "gsap";
 
-    // animate it
-    gsap.from('#theCircle circle', {
-        x: -200
+  gsap.set("#sun", {
+    transformOrigin: "50% 50%",
+    transformBox: "fill-box"
+  });
+
+  const spin = gsap.to("#sun", {
+    rotate: 360,
+    duration: 20,
+    repeat: -1,
+    ease: "none"
+  });
+
+  gsap.to(".sun-core", {
+    scale: 0.9,
+    transformOrigin: "50% 50%",
+    transformBox: "fill-box",
+    duration: 2,
+    repeat: -1,
+    yoyo: true,
+    ease: "sine.inOut"
+  });
+
+  const sun = document.querySelector("#sun");
+
+  sun.addEventListener("mouseenter", () => {
+    spin.timeScale(5);
+
+    gsap.to("#sun", {
+      scale: 1.15,
+      duration: 0.3,
+      ease: "power2.out"
     });
+  });
 
-    // Hover animations
-    const circle = document.querySelector('#theCircle');
+  sun.addEventListener("mouseleave", () => {
+    spin.timeScale(1);
 
-    circle.addEventListener('mouseenter', () => {
-        gsap.to('#theCircle circle', {
-            scale: 1.2,
-            transformOrigin: 'center',
-            duration: 0.3,
-            ease: 'power2.out'
-        });
+    gsap.to("#sun", {
+      scale: 1,
+      duration: 0.3,
+      ease: "power2.inOut"
     });
-
-    circle.addEventListener('mouseleave', () => {
-        gsap.to('#theCircle circle', {
-            scale: 1,
-            transformOrigin: 'center',
-            duration: 0.3,
-            ease: 'power2.in'
-        });
-    });
+  });
 </script>

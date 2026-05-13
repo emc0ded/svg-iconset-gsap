@@ -2,53 +2,72 @@
 // empty frontmatter for future use
 ---
 
-<!-- Square icon from Lucide -->
+<style>
+  #bunny {
+    width: 72px;
+    height: 72px;
+    stroke: #6b4423;
+    fill: #d9b08c; 
+    filter: drop-shadow(0 0 6px rgba(107, 68, 35, 0.15));
+    cursor: default;
+  }
 
-<svg id="theSquare"
-xmlns="http://www.w3.org/2000/svg"
-width="24"
-height="24"
-viewBox="0 0 24 24"
-fill="none"
-stroke="currentColor"
-stroke-width="2"
-stroke-linecap="round"
-stroke-linejoin="round"
-class="lucide lucide-square-icon lucide-square">
+  .eye {
+    fill: #000;
+    stroke: none;
+  }
+</style>
 
-    <rect width="18" height="18" x="3" y="3" rx="2"/>
+<!-- Bunny icon -->
+<svg 
+  id="bunny"
+  xmlns="http://www.w3.org/2000/svg"
+  width="72"
+  height="72"
+  viewBox="0 0 24 24"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
 
+  <!-- bunny paths -->
+  <path d="M13 16a3 3 0 0 1 2.24 5"/>
+  <path d="M18 21h-8a4 4 0 0 1-4-4 7 7 0 0 1 7-7h.2L9.6 6.4a1 1 0 1 1 2.8-2.8L15.8 7h.2c3.3 0 6 2.7 6 6v1a2 2 0 0 1-2 2h-1a3 3 0 0 0-3 3"/>
+  <path d="M20 8.54V4a2 2 0 1 0-4 0v3"/>
+  <path d="M7.612 12.524a3 3 0 1 0-1.6 4.3"/>
+
+  <!-- black eye -->
+  <circle class="eye" cx="18" cy="12" r="0.8"/>
 </svg>
 
-<!-- GSAP Scripting -->
 <script>
-    import gsap from 'gsap';
+  import gsap from "gsap";
 
-    gsap.from('#theSquare rect', {
-        scale: 0,
-        transformOrigin: 'center',
-        duration: 0.6,
-        ease: 'back.out(1.7)'
+  // gentle floating animation
+  gsap.to("#bunny", {
+    y: 5,
+    duration: 1.2,
+    yoyo: true,
+    repeat: -1,
+    ease: "sine.inOut"
+  });
+
+  const bunny = document.querySelector("#bunny");
+
+  // subtle hover grow
+  bunny.addEventListener("mouseenter", () => {
+    gsap.to("#bunny", {
+      scale: 1.05,
+      duration: 0.2,
+      ease: "power2.out"
     });
+  });
 
-    // Hover animations
-    const square = document.querySelector('#theSquare');
-
-    square.addEventListener('mouseenter', () => {
-        gsap.to('#theSquare rect', {
-            scale: 1.2,
-            transformOrigin: 'center',
-            duration: 0.3,
-            ease: 'power2.out'
-        });
+  bunny.addEventListener("mouseleave", () => {
+    gsap.to("#bunny", {
+      scale: 1,
+      duration: 0.2,
+      ease: "power2.inOut"
     });
-
-    square.addEventListener('mouseleave', () => {
-        gsap.to('#theSquare rect', {
-            scale: 1,
-            transformOrigin: 'center',
-            duration: 0.3,
-            ease: 'power2.in'
-        });
-    });
+  });
 </script>

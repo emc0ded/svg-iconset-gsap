@@ -2,54 +2,87 @@
 // empty frontmatter for future use
 ---
 
-<!-- Diamond icon from Lucide -->
+<style>
+  #carrot {
+    width: 64px;
+    height: 64px;
+    cursor: default;
+    filter: drop-shadow(0 0 6px rgba(230, 126, 34, 0.18));
+  }
 
-<svg id="theDiamond"
-xmlns="http://www.w3.org/2000/svg"
-width="24"
-height="24"
-viewBox="0 0 24 24"
-fill="none"
-stroke="currentColor"
-stroke-width="2"
-stroke-linecap="round"
-stroke-linejoin="round"
-class="lucide lucide-diamond-icon lucide-diamond">
+  .carrot-body {
+    stroke: #d96b1c;
+    fill: #f6b26b;
+  }
 
-    <path d="M2.7 10.3a2.41 2.41 0 0 0 0 3.41l7.59 7.59a2.41 2.41 0 0 0 3.41 0l7.59-7.59a2.41 2.41 0 0 0 0-3.41L13.7 2.71a2.41 2.41 0 0 0-3.41 0Z"/>
+  .carrot-top {
+    stroke: #4f8f4f;
+    fill: #8fd18f;
+  }
+</style>
 
+<!-- carrot icon -->
+<svg 
+  id="carrot"
+  xmlns="http://www.w3.org/2000/svg"
+  width="64"
+  height="64"
+  viewBox="0 0 24 24"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+
+  <!-- carrot body -->
+  <path 
+    class="carrot-body"
+    d="M2.27 21.7s9.87-3.5 12.73-6.36a4.5 4.5 0 0 0-6.36-6.37C5.77 11.84 2.27 21.7 2.27 21.7zM8.64 14l-2.05-2.04M15.34 15l-2.46-2.46"
+  />
+
+  <!-- leafy top -->
+  <path 
+    class="carrot-top"
+    d="M22 9s-1.33-2-3.5-2C16.86 7 15 9 15 9s1.33 2 3.5 2S22 9 22 9z"
+  />
+
+  <path 
+    class="carrot-top"
+    d="M15 2s-2 1.33-2 3.5S15 9 15 9s2-1.84 2-3.5C17 3.33 15 2 15 2z"
+  />
 </svg>
 
-<!-- GSAP Scripting -->
+<!-- GSAP -->
 <script>
-    import gsap from 'gsap';
+  import gsap from "gsap";
 
-    gsap.from('#theDiamond path', {
-        rotation: 180,
-        transformOrigin: 'center',
-        opacity: 0,
-        duration: 0.8,
-        ease: 'power2.out'
+  // intro animation
+  gsap.from("#carrot", {
+    rotation: 180,
+    transformOrigin: "center center",
+    opacity: 0,
+    duration: 0.8,
+    ease: "power2.out"
+  });
+
+  const carrot = document.querySelector("#carrot");
+
+  // hover animation
+  carrot.addEventListener("mouseenter", () => {
+    gsap.to("#carrot", {
+      rotation: 12,
+      y: -3,
+      duration: 0.35,
+      ease: "power2.out",
+      transformOrigin: "center center"
     });
+  });
 
-    // Hover animations
-    const diamond = document.querySelector('#theDiamond');
-
-    diamond.addEventListener('mouseenter', () => {
-        gsap.to('#theDiamond path', {
-            rotation: 45,
-            transformOrigin: 'center',
-            duration: 0.4,
-            ease: 'power2.out'
-        });
+  carrot.addEventListener("mouseleave", () => {
+    gsap.to("#carrot", {
+      rotation: 0,
+      y: 0,
+      duration: 0.35,
+      ease: "power2.inOut"
     });
-
-    diamond.addEventListener('mouseleave', () => {
-        gsap.to('#theDiamond path', {
-            rotation: 0,
-            transformOrigin: 'center',
-            duration: 0.4,
-            ease: 'power2.in'
-        });
-    });
+  });
 </script>

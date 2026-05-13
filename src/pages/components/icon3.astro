@@ -2,51 +2,84 @@
 // empty frontmatter for future use
 ---
 
-<!-- Triangle icon from Lucide -->
+<style>
+  #bird {
+    width: 64px;
+    height: 64px;
+    stroke: #4f83c2; 
+    fill: #b9d7f5; 
+    cursor: default;
+    filter: drop-shadow(0 0 6px rgba(79, 131, 194, 0.18));
+  }
 
-<svg id="theTriangle"
-xmlns="http://www.w3.org/2000/svg"
-width="24"
-height="24"
-viewBox="0 0 24 24"
-fill="none"
-stroke="currentColor"
-stroke-width="2"
-stroke-linecap="round"
-stroke-linejoin="round"
-class="lucide lucide-triangle-icon lucide-triangle">
+  .beak {
+    stroke: #e58b2a;
+    fill: none;
+  }
 
-    <path d="M13.73 4a2 2 0 0 0-3.46 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/>
+  .eye {
+    fill: #000;
+    stroke: none;
+  }
+</style>
 
+<!-- Bird icon -->
+<svg 
+  id="bird"
+  xmlns="http://www.w3.org/2000/svg"
+  width="64"
+  height="64"
+  viewBox="0 0 24 24"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+
+  <!-- body -->
+  <path d="M3.4 18H12a8 8 0 0 0 8-8V7a4 4 0 0 0-7.28-2.3L2 20"/>
+  <path d="M10 18v3" fill="none"/>
+  <path d="M14 17.75V21" fill="none"/>
+  <path d="M7 18a6 6 0 0 0 3.84-10.61"/>
+
+  <!-- beak -->
+  <path class="beak" d="m20 7 2 .5-2 .5"/>
+
+  <!-- eye -->
+  <circle class="eye" cx="16" cy="7" r="0.8"/>
 </svg>
 
-<!-- GSAP Scripting -->
+<!-- GSAP -->
 <script>
-    import gsap from 'gsap';
+  import gsap from "gsap";
 
-    gsap.from('#theTriangle path', {
-        y: 200,
-        opacity: 0,
-        duration: 0.7,
-        ease: 'power3.out'
+  // subtle flying motion
+  gsap.to("#bird", {
+    duration: 2,
+    x: 8,
+    y: -2,
+    scale: 1.03,
+    repeat: -1,
+    yoyo: true,
+    ease: "sine.inOut",
+    transformOrigin: "center center"
+  });
+
+  const bird = document.querySelector("#bird");
+
+  // hover lift
+  bird.addEventListener("mouseenter", () => {
+    gsap.to("#bird", {
+      y: -4,
+      duration: 0.3,
+      ease: "power2.out"
     });
+  });
 
-    // Hover animations
-    const triangle = document.querySelector('#theTriangle');
-
-    triangle.addEventListener('mouseenter', () => {
-        gsap.to('#theTriangle path', {
-            y: -4,
-            duration: 0.3,
-            ease: 'power2.out'
-        });
+  bird.addEventListener("mouseleave", () => {
+    gsap.to("#bird", {
+      y: 0,
+      duration: 0.3,
+      ease: "power2.inOut"
     });
-
-    triangle.addEventListener('mouseleave', () => {
-        gsap.to('#theTriangle path', {
-            y: 0,
-            duration: 0.3,
-            ease: 'power2.in'
-        });
-    });
+  });
 </script>
