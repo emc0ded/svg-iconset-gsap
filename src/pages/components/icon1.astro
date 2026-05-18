@@ -1,3 +1,4 @@
+html
 ---
 // empty frontmatter for future use
 ---
@@ -7,7 +8,7 @@
     width: 72px;
     height: 72px;
     stroke: #6b4423;
-    fill: #d9b08c; 
+    fill: #d9b08c;
     filter: drop-shadow(0 0 6px rgba(107, 68, 35, 0.15));
     cursor: default;
   }
@@ -43,7 +44,7 @@
 <script>
   import gsap from "gsap";
 
-  // gentle floating animation
+  // gentle idle float
   gsap.to("#bunny", {
     y: 5,
     duration: 1.2,
@@ -54,20 +55,29 @@
 
   const bunny = document.querySelector("#bunny");
 
-  // subtle hover grow
+  // hop animation on hover
   bunny.addEventListener("mouseenter", () => {
-    gsap.to("#bunny", {
-      scale: 1.05,
-      duration: 0.2,
-      ease: "power2.out"
-    });
-  });
 
-  bunny.addEventListener("mouseleave", () => {
-    gsap.to("#bunny", {
-      scale: 1,
-      duration: 0.2,
-      ease: "power2.inOut"
-    });
+    gsap.timeline()
+      .to("#bunny", {
+        y: -18,
+        scaleX: 1.08,
+        scaleY: 0.95,
+        duration: 0.18,
+        ease: "power2.out"
+      })
+      .to("#bunny", {
+        y: 0,
+        scaleX: 0.96,
+        scaleY: 1.04,
+        duration: 0.22,
+        ease: "bounce.out"
+      })
+      .to("#bunny", {
+        scaleX: 1,
+        scaleY: 1,
+        duration: 0.1
+      });
+
   });
 </script>
